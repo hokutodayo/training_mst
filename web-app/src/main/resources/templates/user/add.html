@@ -15,15 +15,18 @@
       </div>
       <div class="form-group mt-2">
         <label class="form-label" for="inputName">名前:</label>
-        <input type="text" class="form-control" id="inputName" th:field="*{name}" placeholder="サンプル太郎">
+        <input type="text" class="form-control" id="inputName" th:field="*{name}" placeholder="サンプル太郎" th:errorclass="is-invalid">
+        <div class="invalid-feedback" th:errors="*{name}"></div>
       </div>
       <div class="form-group mt-2">
         <label class="form-label" for="inputAddress">住所:</label>
-        <input type="text" class="form-control" id="inputAddress" th:field="*{address}" placeholder="東京都新宿区1-2-3歌舞伎町ビル10F">
+        <input type="text" class="form-control" id="inputAddress" th:field="*{address}" placeholder="東京都新宿区1-2-3歌舞伎町ビル10F" th:errorclass="is-invalid">
+        <div class="invalid-feedback" th:errors="*{address}"></div>
       </div>
       <div class="form-group mt-2">
         <label class="form-label" for="inputPhone">電話番号:</label>
-        <input type="text" class="form-control" id="inputPhone" th:field="*{phone}" placeholder="0120-1234-1234">
+        <input type="text" class="form-control" id="inputPhone" th:field="*{phone}" placeholder="0120-1234-1234" th:errorclass="is-invalid">
+        <div class="invalid-feedback" th:errors="*{phone}"></div>
       </div>
       <br>
       <div class="text-center">
