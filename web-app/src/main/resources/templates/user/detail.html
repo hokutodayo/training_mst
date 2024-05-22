@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{common/head :: head_fragment(scripts = ~{::script}, links = ~{::link})}">
+</head>
+<body>
+
+  <div class="container">
+    <h1>ユーザー情報: 詳細画面</h1>
+    <br>
+
+    <div class="row">
+      <label class="col-2 border bg-light col-form-label ">ID:</label>
+      <div class="col border">
+        <label class="col-form-label" th:text="${id}"></label>
+      </div>
+    </div>
+    <div class="row">
+      <label class="col-2 border bg-light col-form-label ">名前:</label>
+      <div class="col border">
+        <label class="col-form-label" th:text="${name}"></label>
+      </div>
+    </div>
+    <div class="row">
+      <label class="col-2 border bg-light col-form-label ">住所:</label>
+      <div class="col border">
+        <label class="col-form-label" th:text="${address}"></label>
+      </div>
+    </div>
+    <div class="row">
+      <label class="col-2 border bg-light col-form-label ">電話番号:</label>
+      <div class="col border">
+        <label class="col-form-label" th:text="${phone}"></label>
+      </div>
+    </div>
+    <div class="row">
+      <label class="col-2 border bg-light col-form-label ">更新日時:</label>
+      <div class="col border">
+        <label class="col-form-label" th:text="${#temporals.format(updateDate, 'yyyy/MM/dd HH:mm:ss')}"></label>
+      </div>
+    </div>
+    <div class="row">
+      <label class="col-2 border bg-light col-form-label ">登録日時:</label>
+      <div class="col border">
+        <label class="col-form-label" th:text="${#temporals.format(createDate, 'yyyy/MM/dd HH:mm:ss')}"></label>
+      </div>
+    </div>
+    <div class="row">
+      <label class="col-2 border bg-light col-form-label ">削除日時:</label>
+      <div class="col border">
+        <label class="col-form-label" th:text="${#temporals.format(deleteDate, 'yyyy/MM/dd HH:mm:ss')}"></label>
+      </div>
+    </div>
+    <br>
+
+    <div class="text-center">
+      <a th:href="@{/user/list}" class="btn btn-secondary">一覧に戻る</a>
+    </div>
+
+  </div>
+
+</body>
+</html>

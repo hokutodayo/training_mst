@@ -16,6 +16,7 @@
           <th>住所</th>
           <th>電話番号</th>
           <th>更新日時</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -25,6 +26,7 @@
           <td th:text="${address}"></td>
           <td class="center" th:text="${phone}"></td>
           <td class="center" th:text="${#temporals.format(updateDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
+          <td><a th:href="@{/user/{id}(id=${id})}" class="btn btn-secondary">詳細</a></td>
         </tr>
       </tbody>
     </table>
