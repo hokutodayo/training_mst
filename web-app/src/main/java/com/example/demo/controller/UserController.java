@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
 
+import jakarta.persistence.OptimisticLockException;
+
 @Controller
 public class UserController {
 
@@ -83,8 +85,13 @@ public class UserController {
 			return "user/edit";
 		}
 
-		userService.updateUser(user);
+		try {
+			userService.updateUser(user);
+			return "redirect:/user/list";
 
-		return "redirect:/user/list";
+		} catch (OptimisticLockException e) {
+			model.addAttribute("message", e.getMessage());
+			return "user/edit";
+		}
 	}
 }

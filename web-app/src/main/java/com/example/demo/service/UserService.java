@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
 
+import jakarta.persistence.OptimisticLockException;
+
 @Service
 public class UserService {
 
@@ -35,8 +37,16 @@ public class UserService {
 	}
 
 	public User updateUser(User user) {
-		LocalDateTime now = LocalDateTime.now();
-		user.setUpdateDate(now);
-		return userRepository.save(user);
+		User currentUser = userRepository.findById(user.getId()).get();
+
+		if (currentUser.getUpdateDate().equals(user.getUpdateDate())) {
+			LocalDateTime now = LocalDateTime.now();
+			user.setUpdateDate(now);
+			return userRepository.save(user);
+
+		} else {
+			String message = "データが他の方によって更新されたようです。一覧画面に戻ってから再実施してください。";
+			throw new OptimisticLockException(message);
+		}
 	}
 }
