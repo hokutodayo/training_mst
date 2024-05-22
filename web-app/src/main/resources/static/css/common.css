@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+body {
+  padding: 32px;
+  background-color: lightgray;
+}
+
+div.container {
+  padding: 32px;
+  background-color: white;
+}
