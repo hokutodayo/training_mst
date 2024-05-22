@@ -58,4 +58,12 @@ public class UserController {
 
 		return "redirect:/user/list";
 	}
+
+	@GetMapping("/user/{id}/delete")
+	public String deleteUser(@PathVariable Long id, Model model) {
+
+		userService.deleteUser(id);
+
+		return "redirect:/user/list";
+	}
 }
