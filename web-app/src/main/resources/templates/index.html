@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,6 +9,12 @@
 
   <div>
     <h1>Index画面</h1>
+    <br>
+
+    <p th:text="${message}"></p>
+    <p th:text="${#temporals.format(datetime, 'yyyy/MM/dd HH:mm:ss')}"></p>
+    <br>
+
   </div>
 
 </body>
