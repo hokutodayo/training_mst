@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Webアプリケーション</title>
+</head>
+<body>
+
+  <div>
+    <h1>ユーザー情報: 一覧画面</h1>
+    <br>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>名前</th>
+          <th>住所</th>
+          <th>電話番号</th>
+          <th>更新日時</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="center" th:text="${id}"></td>
+          <td th:text="${name}"></td>
+          <td th:text="${address}"></td>
+          <td class="center" th:text="${phone}"></td>
+          <td class="center" th:text="${#temporals.format(updateDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>
