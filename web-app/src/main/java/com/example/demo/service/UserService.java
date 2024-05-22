@@ -33,4 +33,10 @@ public class UserService {
 	public void deleteUser(Long id) {
 		userRepository.deleteById(id);
 	}
+
+	public User updateUser(User user) {
+		LocalDateTime now = LocalDateTime.now();
+		user.setUpdateDate(now);
+		return userRepository.save(user);
+	}
 }
