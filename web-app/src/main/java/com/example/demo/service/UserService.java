@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
@@ -36,8 +37,9 @@ public class UserService {
 		userRepository.deleteById(id);
 	}
 
+	@Transactional
 	public User updateUser(User user) {
-		User currentUser = userRepository.findById(user.getId()).get();
+		User currentUser = userRepository.findOneForUpdate(user.getId());
 
 		if (currentUser.getUpdateDate().equals(user.getUpdateDate())) {
 			LocalDateTime now = LocalDateTime.now();
