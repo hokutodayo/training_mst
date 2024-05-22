@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,13 +29,8 @@ public class UserController {
 	@GetMapping("/user/{id}")
 	public String displayDetail(@PathVariable Long id, Model model) {
 
-		model.addAttribute("id", id);
-		model.addAttribute("name", "サンプル太郎");
-		model.addAttribute("address", "東京都新宿区1-2-3");
-		model.addAttribute("phone", "090-1234-1234");
-		model.addAttribute("updateDate", LocalDateTime.now());
-		model.addAttribute("createDate", LocalDateTime.now());
-		model.addAttribute("deleteDate", null);
+		User user = userService.search(id);
+		model.addAttribute("user", user);
 
 		return "user/detail";
 	}
