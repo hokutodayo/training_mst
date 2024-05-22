@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +21,12 @@ public class UserService {
 
 	public User search(Long id) {
 		return userRepository.findById(id).get();
+	}
+
+	public User createUser(User user) {
+		LocalDateTime now = LocalDateTime.now();
+		user.setCreateDate(now);
+		user.setUpdateDate(now);
+		return userRepository.save(user);
 	}
 }
