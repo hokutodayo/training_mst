@@ -20,13 +20,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td class="center" th:text="${id}"></td>
-          <td th:text="${name}"></td>
-          <td th:text="${address}"></td>
-          <td class="center" th:text="${phone}"></td>
-          <td class="center" th:text="${#temporals.format(updateDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
-          <td><a th:href="@{/user/{id}(id=${id})}" class="btn btn-secondary">詳細</a></td>
+        <tr th:each="user: ${userList}" th:object="${user}">
+          <td class="center" th:text="*{id}"></td>
+          <td th:text="*{name}"></td>
+          <td th:text="*{address}"></td>
+          <td class="center" th:text="*{phone}"></td>
+          <td class="center" th:text="*{#temporals.format(updateDate, 'yyyy/MM/dd HH:mm:ss')}"></td>
+          <td><a th:href="@{/user/{id}(id=*{id})}" class="btn btn-secondary">詳細</a></td>
         </tr>
       </tbody>
     </table>
