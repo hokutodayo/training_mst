@@ -12,20 +12,40 @@ import com.example.demo.repository.UserRepository;
 
 import jakarta.persistence.OptimisticLockException;
 
+/**
+ * ユーザー情報を扱サービスクラスです。
+ */
 @Service
 public class UserService {
 
 	@Autowired
 	UserRepository userRepository;
 
+	/**
+	 * 全てのユーザー情報を取得します。
+	 *
+	 * @return 全てのユーザー情報
+	 */
 	public List<User> searchAll() {
 		return userRepository.findAll();
 	}
 
+	/**
+	 * 指定されたユーザーIDに対応するユーザー情報を取得します。
+	 *
+	 * @param id ユーザーID
+	 * @return 指定されたユーザーIDに対応するユーザー情報
+	 */
 	public User search(Long id) {
 		return userRepository.findById(id).get();
 	}
 
+	/**
+	 * 指定されたユーザー情報を登録します。
+	 *
+	 * @param user 登録するユーザー情報
+	 * @return 登録されたユーザー情報
+	 */
 	public User createUser(User user) {
 		LocalDateTime now = LocalDateTime.now();
 		user.setCreateDate(now);
@@ -33,10 +53,25 @@ public class UserService {
 		return userRepository.save(user);
 	}
 
+	/**
+	 * 指定されたユーザーIDに対応するユーザー情報を削除します。
+	 *
+	 * @param id 削除するユーザーID
+	 */
 	public void deleteUser(Long id) {
 		userRepository.deleteById(id);
 	}
 
+	/**
+	 * 指定されたユーザー情報を更新します。
+	 * <p>
+	 * 更新時に排他制御（オプティミスティックロック）を行います。
+	 * </p>
+	 *
+	 * @param user 更新するユーザー情報
+	 * @return 更新されたユーザー情報
+	 * @throws OptimisticLockException 他のユーザーによってデータが更新されている場合にスローされます。
+	 */
 	@Transactional
 	public User updateUser(User user) {
 		User currentUser = userRepository.findOneForUpdate(user.getId());

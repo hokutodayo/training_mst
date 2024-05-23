@@ -15,6 +15,12 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+/**
+ * ユーザー情報を表すEntityクラスです。
+ * <p>
+ * このクラスは、データベースのusersテーブルと対応しています。
+ * </p>
+ */
 @Entity
 @Data
 @Table(name = "users")

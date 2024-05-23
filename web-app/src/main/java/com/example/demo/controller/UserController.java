@@ -16,12 +16,21 @@ import com.example.demo.service.UserService;
 
 import jakarta.persistence.OptimisticLockException;
 
+/**
+ * ユーザーに関する画面の制御を行うコントローラークラスです。
+ */
 @Controller
 public class UserController {
 
 	@Autowired
 	UserService userService;
 
+	/**
+	 * ユーザーの一覧画面を表示する。
+	 *
+	 * @param model モデル
+	 * @return ユーザー一覧画面
+	 */
 	@GetMapping("/user/list")
 	public String displayList(Model model) {
 
@@ -31,6 +40,13 @@ public class UserController {
 		return "user/list";
 	}
 
+	/**
+	 * ユーザーの詳細画面を表示する。
+	 *
+	 * @param id ユーザーID
+	 * @param model モデル
+	 * @return ユーザー詳細画面
+	 */
 	@GetMapping("/user/{id}")
 	public String displayDetail(@PathVariable Long id, Model model) {
 
@@ -40,6 +56,12 @@ public class UserController {
 		return "user/detail";
 	}
 
+	/**
+	 * ユーザーの新規登録画面を表示する。
+	 *
+	 * @param model モデル
+	 * @return ユーザー登録画面
+	 */
 	@GetMapping("/user/add")
 	public String displayAdd(Model model) {
 
@@ -49,6 +71,17 @@ public class UserController {
 		return "user/add";
 	}
 
+	/**
+	 * ユーザーを新規登録する。
+	 * <p>
+	 * 入力エラーがある場合は、もとの入力画面にエラー内容を表示する。
+	 * </p>
+	 *
+	 * @param user ユーザー情報
+	 * @param result 入力チェック結果
+	 * @param model モデル
+	 * @return ユーザー一覧画面にリダイレクトする
+	 */
 	@PostMapping("/user/create")
 	public String createUser(@Validated User user, BindingResult result, Model model) {
 
@@ -61,6 +94,13 @@ public class UserController {
 		return "redirect:/user/list";
 	}
 
+	/**
+	 * 指定したユーザーを削除する。
+	 *
+	 * @param id ユーザーID
+	 * @param model モデル
+	 * @return ユーザー一覧画面にリダイレクトする
+	 */
 	@GetMapping("/user/{id}/delete")
 	public String deleteUser(@PathVariable Long id, Model model) {
 
@@ -69,6 +109,13 @@ public class UserController {
 		return "redirect:/user/list";
 	}
 
+	/**
+	 * ユーザーの編集画面を表示する。
+	 *
+	 * @param id ユーザーID
+	 * @param model モデル
+	 * @return ユーザー編集画面
+	 */
 	@GetMapping("/user/{id}/edit")
 	public String displayEdit(@PathVariable Long id, Model model) {
 
@@ -78,6 +125,17 @@ public class UserController {
 		return "user/edit";
 	}
 
+	/**
+	 * 指定したユーザーの情報を更新する。
+	 * <p>
+	 * 入力エラー、または、排他制御エラーがある場合は、もとの入力画面にエラー内容を表示する。
+	 * </p>
+	 *
+	 * @param user ユーザー情報
+	 * @param result 入力値のチェック結果
+	 * @param model モデル
+	 * @return 一覧画面にリダイレクトする
+	 */
 	@PostMapping("/user/update")
 	public String updateUser(@Validated User user, BindingResult result, Model model) {
 

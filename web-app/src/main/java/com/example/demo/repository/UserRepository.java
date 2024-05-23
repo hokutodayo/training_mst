@@ -9,8 +9,17 @@ import com.example.demo.entity.User;
 
 import jakarta.persistence.LockModeType;
 
+/**
+ * ユーザーデータを扱うリポジトリクラスです。
+ */
 public interface UserRepository extends JpaRepository<User, Long> {
 
+	/**
+	 * 指定されたIDに該当するユーザー情報を Pessimistic Lock で取得します。
+	 *
+	 * @param id 取得するユーザー情報のID
+	 * @return 指定されたIDに該当するユーザー情報
+	 */
 	@Lock(LockModeType.PESSIMISTIC_WRITE)
 	@Query("SELECT u FROM User u WHERE u.id = :id")
 	User findOneForUpdate(@Param("id") Long id);
