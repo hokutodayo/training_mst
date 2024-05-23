@@ -1,14 +1,15 @@
 package com.example.demo.service;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -43,14 +44,14 @@ class UserServiceTest {
 		userList.add(new User());
 
 		// モック設定
-		Mockito.when(userRepository.findAll()).thenReturn(userList);
+		when(userRepository.findAll()).thenReturn(userList);
 
 		// テスト実行
 		List<User> actual = userService.searchAll();
 
 		// 検証
-		Mockito.verify(userRepository, Mockito.atLeastOnce()).findAll();
-		Assertions.assertEquals(userList, actual);
+		verify(userRepository, atLeastOnce()).findAll();
+		assertEquals(userList, actual);
 	}
 
 	/**
@@ -66,14 +67,14 @@ class UserServiceTest {
 		user.setName("テスト太郎");
 
 		// モック設定
-		Mockito.when(userRepository.findById(user.getId())).thenReturn(Optional.ofNullable(user));
+		when(userRepository.findById(user.getId())).thenReturn(Optional.ofNullable(user));
 
 		// テスト実行
 		User actual = userService.search(user.getId());
 
 		// 検証
-		Mockito.verify(userRepository, Mockito.atLeastOnce()).findById(user.getId());
-		Assertions.assertEquals(user, actual);
+		verify(userRepository, atLeastOnce()).findById(user.getId());
+		assertEquals(user, actual);
 	}
 
 	/**
@@ -92,19 +93,19 @@ class UserServiceTest {
 		user.setDeleteDate(null);
 
 		// モック設定
-		Mockito.when(userRepository.save(user)).thenReturn(user);
+		when(userRepository.save(user)).thenReturn(user);
 
 		// テスト実行
 		User actual = userService.createUser(user);
 
 		// 検証
-		Mockito.verify(userRepository, Mockito.atLeastOnce()).save(user);
-		Assertions.assertEquals(user, actual);
+		verify(userRepository, atLeastOnce()).save(user);
+		assertEquals(user, actual);
 		// 作成日時と更新日時には、日時がセットされているか
-		Assertions.assertNotNull(actual.getCreateDate());
-		Assertions.assertNotNull(actual.getUpdateDate());
+		assertNotNull(actual.getCreateDate());
+		assertNotNull(actual.getUpdateDate());
 		// 削除日時はnullのままか
-		Assertions.assertNull(actual.getDeleteDate());
+		assertNull(actual.getDeleteDate());
 	}
 
 	/**
@@ -120,13 +121,13 @@ class UserServiceTest {
 		user.setName("テスト太郎");
 
 		// モック設定
-		Mockito.doNothing().when(userRepository).deleteById(user.getId());
+		doNothing().when(userRepository).deleteById(user.getId());
 
 		// テスト実行
 		userService.deleteUser(user.getId());
 
 		// 検証
-		Mockito.verify(userRepository, Mockito.atLeastOnce()).deleteById(user.getId());
+		verify(userRepository, atLeastOnce()).deleteById(user.getId());
 	}
 
 	/**
@@ -148,22 +149,22 @@ class UserServiceTest {
 		user.setDeleteDate(base);
 
 		// モック設定
-		Mockito.when(userRepository.findOneForUpdate(user.getId())).thenReturn(user);
-		Mockito.when(userRepository.save(user)).thenReturn(user);
+		when(userRepository.findOneForUpdate(user.getId())).thenReturn(user);
+		when(userRepository.save(user)).thenReturn(user);
 
 		// テスト実行
 		User actual = userService.updateUser(user);
 
 		// 検証
-		Mockito.verify(userRepository, Mockito.atLeastOnce()).findOneForUpdate(user.getId());
-		Mockito.verify(userRepository, Mockito.atLeastOnce()).save(user);
-		Assertions.assertEquals(user, actual);
+		verify(userRepository, atLeastOnce()).findOneForUpdate(user.getId());
+		verify(userRepository, atLeastOnce()).save(user);
+		assertEquals(user, actual);
 		// 作成日時は変化なし
-		Assertions.assertEquals(base, actual.getCreateDate());
+		assertEquals(base, actual.getCreateDate());
 		// 更新日時が、更新されているか
-		Assertions.assertTrue(actual.getUpdateDate().isAfter(base));
+		assertTrue(actual.getUpdateDate().isAfter(base));
 		// 削除日時は変化なし
-		Assertions.assertEquals(base, actual.getDeleteDate());
+		assertEquals(base, actual.getDeleteDate());
 	}
 
 	/**
@@ -190,18 +191,18 @@ class UserServiceTest {
 		updatedUser.setUpdateDate(LocalDateTime.now());
 
 		// モック設定
-		Mockito.when(userRepository.findOneForUpdate(user.getId())).thenReturn(updatedUser);
-		Mockito.when(userRepository.save(user)).thenReturn(updatedUser);
+		when(userRepository.findOneForUpdate(user.getId())).thenReturn(updatedUser);
+		when(userRepository.save(user)).thenReturn(updatedUser);
 
 		// テスト実行
-		Throwable e = Assertions.assertThrows(OptimisticLockException.class, () -> userService.updateUser(user));
+		Throwable e = assertThrows(OptimisticLockException.class, () -> userService.updateUser(user));
 
 		// 検証
-		Mockito.verify(userRepository, Mockito.atLeastOnce()).findOneForUpdate(user.getId());
+		verify(userRepository, atLeastOnce()).findOneForUpdate(user.getId());
 		// saveメソッドが呼ばれていないことを確認
-		Mockito.verify(userRepository, Mockito.never()).save(user);
+		verify(userRepository, never()).save(user);
 		// 例外にセットされたメッセージの確認
-		Assertions.assertEquals("データが他の方によって更新されたようです。一覧画面に戻ってから再実施してください。", e.getMessage());
+		assertEquals("データが他の方によって更新されたようです。一覧画面に戻ってから再実施してください。", e.getMessage());
 	}
 
 }

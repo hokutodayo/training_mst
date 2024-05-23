@@ -1,8 +1,9 @@
 package com.example.demo.entity;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.time.LocalDateTime;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -37,13 +38,13 @@ class UserTest {
 		user.setDeleteDate(deleteDate);
 
 		// 値の検証
-		Assertions.assertEquals(id, user.getId());
-		Assertions.assertEquals(name, user.getName());
-		Assertions.assertEquals(address, user.getAddress());
-		Assertions.assertEquals(phone, user.getPhone());
-		Assertions.assertEquals(updateDate, user.getUpdateDate());
-		Assertions.assertEquals(createDate, user.getCreateDate());
-		Assertions.assertEquals(deleteDate, user.getDeleteDate());
+		assertEquals(id, user.getId());
+		assertEquals(name, user.getName());
+		assertEquals(address, user.getAddress());
+		assertEquals(phone, user.getPhone());
+		assertEquals(updateDate, user.getUpdateDate());
+		assertEquals(createDate, user.getCreateDate());
+		assertEquals(deleteDate, user.getDeleteDate());
 	}
 
 }
